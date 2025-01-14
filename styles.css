@@ -1,0 +1,272 @@
+:root {
+    --primary-red: #F22929;
+    --primary-blue: #152C40;
+    --gray-bg: #D9D9D9;
+    --text-color: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #FFFFFF;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Header Styles */
+header {
+    padding: 20px 100px;
+    background-color: #FFFFFF;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.logo svg {
+    width: 126px;
+    height: 129px;
+}
+
+.nav-brand svg {
+    width: 412px;
+    height: 109px;
+}
+
+/* Hero Section */
+.hero {
+    padding: 2rem;
+    margin-top: 60px;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    max-width: 1162px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+/* Expertise Section */
+.expertise {
+    padding: 2rem;
+}
+
+.section-title {
+    text-align: center;
+    color: var(--primary-red);
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.expertise-card {
+    background-color: #FAFAFA;
+    border: 1px solid #8F8F8F;
+    border-radius: 50px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.expertise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    margin-bottom: 20px;
+}
+
+.expertise-card h3 {
+    color: var(--primary-blue);
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.expertise-card p {
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-top: 1px solid #8F8F8F;
+}
+
+.footer-logo svg {
+    width: 80px;
+    height: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-content {
+        margin: 0 20px;
+    }
+
+    .expertise {
+        padding: 60px 20px;
+    }
+
+    .expertise-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    footer {
+        padding: 40px 20px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .expertise-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+        padding: 0 20px;
+    }
+    
+    .expertise-card {
+        padding: 20px;
+    }
+}
+
+/* Add social icons styling */
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    background-color: var(--primary-red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-blue);
+}
+
+.social-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Add smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero h2 {
+        font-size: 1.4rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .expertise-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 480px) {
+    .hero {
+        padding: 1rem;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .expertise-card {
+        padding: 1rem;
+    }
+} 
