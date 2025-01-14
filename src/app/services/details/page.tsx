@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, Suspense } from 'react';
 import { motion } from "framer-motion";
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -18,7 +18,7 @@ interface ServiceDetails {
   [key: string]: ServiceDetail;
 }
 
-const ServiceDetailsPage: React.FC = () => {
+function DetailsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const service = searchParams?.get('service') || '';
@@ -377,6 +377,12 @@ const ServiceDetailsPage: React.FC = () => {
       </main>
     </div>
   );
-};
+}
 
-export default ServiceDetailsPage; 
+export default function DetailsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DetailsContent />
+    </Suspense>
+  );
+} 
