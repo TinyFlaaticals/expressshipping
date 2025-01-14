@@ -350,7 +350,7 @@ const ServiceDetailsPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          {['fb', 'insta', 'linkedin'].map((social, index) => (
+          {['fb', 'insta', 'linkedin'].map((social) => (
             <motion.a
               key={social}
               href="#"

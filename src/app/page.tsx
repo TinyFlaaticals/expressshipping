@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useRef, ReactElement } from "react";
+import { ReactElement } from "react";
 import Image from 'next/image';
 import LogoFull from '../../public/logo_full.svg'
 import ServiceCard from '../components/ServiceCard';

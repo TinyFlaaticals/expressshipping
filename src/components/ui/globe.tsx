@@ -26,6 +26,10 @@ const LOCATIONS: Location[] = [
   { coordinates: [52.3676, 4.9041], size: 0.08 },    // Rotterdam
 ] as const
 
+interface GlobeConfig {
+  // add appropriate properties
+}
+
 const GLOBE_CONFIG: COBEOptions = {
   width: 1200,
   height: 1200,
@@ -116,7 +120,7 @@ export function Globe({
       window.removeEventListener("resize", onResize)
       globe.destroy()
     }
-  }, [])
+  }, [config, onRender, onResize, width])
 
   return (
     <div className={cn(
