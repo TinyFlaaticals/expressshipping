@@ -1,38 +1,50 @@
-import Image from 'next/image'
+'use client';
+
+import { motion } from "framer-motion";
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
+  const router = useRouter();
+
   return (
-    <div 
-      className="relative w-full h-[300px] rounded-[50px] overflow-hidden bg-gradient-to-r from-gray-50 to-gray-100 border border-red-500"
+    <motion.div 
+      className="w-full flex flex-col items-center md:flex-row md:justify-between 
+                 px-4 sm:px-6 lg:px-[57px] pt-6 md:pt-[64px] gap-6 md:gap-0"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
     >
-      <div className="absolute inset-0">
-        <Image
-          src="/public/images/hero.jpg"
-          alt="Maldives Aerial View"
-          fill
-          className="object-cover opacity-20"
-          priority
-          sizes="100vw"
-          onError={(e) => {
-            console.error('Image failed to load:', e);
-          }}
-          onLoad={() => {
-            console.log('Image loaded successfully');
-          }}
-        />
-      </div>
-      
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full">
-        <h1 className="text-[40px] font-bold text-center">
-          THE MALDIVES' LOGISTICS EXPERTS
-        </h1>
-        <p className="text-xl mt-4">
-          Reliable Logistics, Beyond Boundaries
-        </p>
-      </div>
-    </div>
-  )
+      {/* Logo Icon - Clickable */}
+      <Image 
+        src="/logo-icon.svg" 
+        alt="Express Shipping Logo" 
+        width={128} 
+        height={129}
+        style={{ 
+          width: 'clamp(80px, 15vw, 128px)',
+          height: 'auto',
+          cursor: 'pointer'
+        }}
+        className="hover:scale-105 transition-transform duration-300"
+        onClick={() => router.push('/')}
+        priority
+      />
+
+      {/* Logo Text */}
+      <Image 
+        src="/logo_text.svg" 
+        alt="Express Shipping & Logistics" 
+        width={411} 
+        height={108}
+        style={{ 
+          width: 'clamp(250px, 40vw, 411px)',
+          height: 'auto'
+        }}
+        priority
+      />
+    </motion.div>
+  );
 }
 
-export default Header
+export default Header;

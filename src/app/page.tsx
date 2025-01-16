@@ -19,31 +19,6 @@ export default function Home(): ReactElement {
 
   return (
     <main className="min-h-screen bg-white flex flex-col items-center">
-      {/* Header */}
-      <motion.div 
-        className="w-full max-w-[1512px] flex justify-between items-start px-[57px] pt-[64px]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Image 
-          src="/logo-icon.svg" 
-          alt="Express Shipping Logo" 
-          width={128} 
-          height={129}
-          style={{ width: '128px', height: '129px' }}
-          priority
-        />
-        <Image 
-          src="/logo_text.svg" 
-          alt="Express Shipping & Logistics" 
-          width={411} 
-          height={108}
-          style={{ width: '411px', height: '108px' }}
-          priority
-        />
-      </motion.div>
-
       {/* Hero Section */}
       <motion.div 
         className="relative w-full max-w-[1398px] h-[817px] bg-[#152C40] rounded-[55px] flex flex-col items-center mt-[40px] overflow-hidden"
@@ -77,17 +52,9 @@ export default function Home(): ReactElement {
         </p>
       </div>
 
-        {/* Divider with animation */}
-        <motion.div 
-          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-20"
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      />
 
             {/* Mission & Vision Section */}
-            <div className="w-full max-w-[1398px] space-x-40 flex justify-center margin-top -12px">
+            <div className="w-full max-w-[1398px] space-x-40 flex justify-center mt-20">
         {/* Mission */}
         <div className="max-w-[485px]">
           <div className="flex items-center gap-4 mb-8">
@@ -140,21 +107,14 @@ export default function Home(): ReactElement {
         </div>
       </div>
 
-              {/* Divider with animation */}
-              <motion.div 
-          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-24"
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      />
-      
       {/* Expertise Section */}
-      <div className="w-full max-w-[1398px] margin-top -12px">
-        <h2 className="text-[#F22929] text-[32px] font-bold text-center mb-16">
+      <div className="w-full max-w-[1398px] mt-24 px-4 md:px-0">
+        <h2 className="text-[#F22929] text-2xl md:text-[32px] font-bold text-center mb-8 md:mb-16">
           OUR EXPERTISE IN ACTION
         </h2>
-        <div className="grid grid-cols-3 gap-x-[22px] gap-y-[32px] justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
+                      gap-4 md:gap-x-[22px] md:gap-y-[32px] 
+                      justify-items-center">
           <ServiceCard
             title="Sea-to-Air Freight Forwarding"
             description="A cost-effective solution combining the affordability of sea freight with the speed of air transport to seamlessly meet your logistics needs."
@@ -233,89 +193,6 @@ export default function Home(): ReactElement {
         </div>
       </div>
 
-
-        {/* Divider with animation */}
-        <motion.div 
-          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-28"
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      />
-
-      {/* Get In Touch Section */}
-      <div className="w-full max-w-[1398px] flex justify-between items-start mb-20 mt-6">
-        <div className="flex gap-20">
-          <Image 
-            src="/logo_full.svg" 
-            alt="Express Shipping & Logistics" 
-            width={239} 
-            height={192} 
-            className="object-contain"
-          />
-          <div className="flex flex-col">
-            <h3 className="text-[32px] font-black text-[#152C40] mb-6">GET IN TOUCH</h3>
-            <p className="max-w-[400px] text-[17px] text-[#152C40] line-clamp-6 leading-[32px] mb-8">
-              Connect with us and discover how Express Shipping & Logistics can be your partner in success. Reach out to us today to discuss your specific needs and explore the possibilities of working together.
-            </p>
-          </div>
-        </div>
-        <div className="text-[17px] text-[#152C40] leading-[24px]">
-          <p className="mb-2">Address : M. Bunberuge, 2 Floor, Shairu</p>
-          <p className="mb-2">Varudhee, K. Malé, Maldives</p>
-          <p className="mb-2">Mobile : +960 9381818</p>
-          <p className="mb-2">Email : info@expressshipping.mv</p>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="w-full max-w-[1398px] flex justify-end gap-4 mb-8">
-        <div className="w-[30px] h-[30px] flex items-center justify-center">
-          <motion.div
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Image 
-              src="/icons/social_fb.svg" 
-              alt="Facebook" 
-              width={30} 
-              height={30} 
-              className="object-contain hover:opacity-80 transition-opacity"
-              priority
-            />
-          </motion.div>
-        </div>
-        <motion.div
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <div className="w-[30px] h-[30px] flex items-center justify-center">
-            <Image 
-              src="/icons/social_insta.svg" 
-            alt="Instagram" 
-              width={30} 
-              height={30} 
-              className="object-contain"
-              priority
-            />
-          </div>
-        </motion.div>
-        <motion.div
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <div className="w-[30px] h-[30px] flex items-center justify-center">
-            <Image 
-            src="/icons/social_linkedin.svg" 
-            alt="LinkedIn" 
-            width={30} 
-            height={30} 
-            className="object-contain"
-              priority
-            />
-          </div>
-        </motion.div>
-      </div>
     </main>
   );
 }

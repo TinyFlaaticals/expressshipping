@@ -9,41 +9,6 @@ export default function GlobalPartners() {
 
   return (
     <main className="min-h-screen bg-white flex flex-col items-center">
-      {/* Header */}
-      <motion.div 
-        className="w-full max-w-[1512px] flex justify-between items-start px-[57px] pt-[64px]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Image 
-          src="/logo-icon.svg" 
-          alt="Express Shipping Logo" 
-          width={128} 
-          height={129}
-          style={{ width: '128px', height: '129px' }}
-          priority
-        />
-        <Image 
-          src="/logo_text.svg" 
-          alt="Express Shipping & Logistics" 
-          width={411} 
-          height={108}
-          style={{ width: '411px', height: '108px' }}
-          priority
-        />
-      </motion.div>
-
-
-              {/* Divider with animation */}
-              <motion.div 
-          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-24"
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      />
-
       {/* Global Partners Content */}
       <div className="w-full max-w-[1398px] mt-12">
         {/* Content Container */}
@@ -97,128 +62,43 @@ export default function GlobalPartners() {
         </div>
       </div>
 
-            {/* Back Button */}
-            <div className="flex justify-center w-full mt-24">
-        <motion.button
-          onClick={() => router.push('/')}
-          className="mx-auto flex items-center gap-3 
-                   px-6 py-3 rounded-full border border-transparent
-                   hover:border-[#2B84EA]/20 hover:bg-[#2B84EA]/5
-                   transition-all duration-300"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+      {/* Back Button */}
+      <motion.button
+        onClick={() => router.push('/')}
+        className="mx-auto mt-16 mb-20 flex items-center gap-3 
+                 px-6 py-3 rounded-full border border-transparent
+                 hover:border-[#2B84EA]/20 hover:bg-[#2B84EA]/5
+                 transition-all duration-300"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        whileHover={{ y: -5 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <motion.div
+          className="flex items-center justify-center w-10 h-10 rounded-full 
+                   bg-[#152C40] text-white"
+          whileHover={{ rotate: -360 }}
           transition={{ duration: 0.5 }}
-          whileHover={{ y: -5 }}
-          whileTap={{ scale: 0.98 }}
         >
-          <motion.div
-            className="flex items-center justify-center w-10 h-10 rounded-full 
-                     bg-[#152C40] text-white"
-            whileHover={{ rotate: -360 }}
-            transition={{ duration: 0.5 }}
+          <svg 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor"
+            className="transform"
           >
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor"
-              className="transform"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </motion.div>
-          <span className="text-[#152C40] font-medium text-lg">Back to Home</span>
-        </motion.button>
-      </div>
-
-              {/* Divider with animation */}
-              <motion.div 
-          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-24"
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      />
-
-      {/* Get In Touch Section */}
-      <div className="w-full max-w-[1398px] flex justify-between items-start mb-20 mt-6">
-        <div className="flex gap-20">
-          <Image 
-            src="/logo_full.svg" 
-            alt="Express Shipping & Logistics" 
-            width={239} 
-            height={192} 
-            className="object-contain"
-          />
-          <div className="flex flex-col">
-            <h3 className="text-[32px] font-black text-[#152C40] mb-6">GET IN TOUCH</h3>
-            <p className="max-w-[400px] text-[17px] text-[#152C40] line-clamp-6 leading-[32px] mb-8">
-              Connect with us and discover how Express Shipping & Logistics can be your partner in success. Reach out to us today to discuss your specific needs and explore the possibilities of working together.
-            </p>
-          </div>
-        </div>
-        <div className="text-[17px] text-[#152C40] leading-[24px]">
-          <p className="mb-2">Address : M. Bunberuge, 2 Floor, Shairu</p>
-          <p className="mb-2">Varudhee, K. Malé, Maldives</p>
-          <p className="mb-2">Mobile : +960 9381818</p>
-          <p className="mb-2">Email : info@expressshipping.mv</p>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="w-full max-w-[1398px] flex justify-end gap-4 mb-8">
-        <div className="w-[30px] h-[30px] flex items-center justify-center">
-          <motion.div
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Image 
-              src="/icons/social_fb.svg" 
-              alt="Facebook" 
-              width={30} 
-              height={30} 
-              className="object-contain hover:opacity-80 transition-opacity"
-              priority
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M15 19l-7-7 7-7"
             />
-          </motion.div>
-        </div>
-        <motion.div
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <div className="w-[30px] h-[30px] flex items-center justify-center">
-            <Image 
-              src="/icons/social_insta.svg" 
-              alt="Instagram" 
-              width={30} 
-              height={30} 
-              className="object-contain"
-              priority
-            />
-          </div>
+          </svg>
         </motion.div>
-        <motion.div
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <div className="w-[30px] h-[30px] flex items-center justify-center">
-            <Image 
-              src="/icons/social_linkedin.svg" 
-              alt="LinkedIn" 
-              width={30} 
-              height={30} 
-              className="object-contain"
-              priority
-            />
-          </div>
-        </motion.div>
-      </div>
+        <span className="text-[#152C40] font-medium text-lg">Back to Home</span>
+      </motion.button>
     </main>
   );
 }
