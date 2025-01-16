@@ -98,7 +98,7 @@ export default function GlobalPartners() {
       </div>
 
             {/* Back Button */}
-            <div className="flex justify-center w-full mt-12">
+            <div className="flex justify-center w-full mt-24">
         <motion.button
           onClick={() => router.push('/')}
           className="mx-auto flex items-center gap-3 
