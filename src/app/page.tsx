@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { ReactElement } from "react";
 import Image from 'next/image';
-import LogoFull from '../../public/logo_full.svg'
 import ServiceCard from '../components/ServiceCard';
 import { Globe } from '@/components/ui/globe'
+import Link from 'next/link';
 
 export default function Home(): ReactElement {
   const fadeInUp = {
@@ -74,8 +74,80 @@ export default function Home(): ReactElement {
         </p>
       </div>
 
+        {/* Divider with animation */}
+        <motion.div 
+          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-20"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      />
+
+            {/* Mission & Vision Section */}
+            <div className="w-full max-w-[1398px] space-x-40 flex justify-center margin-top -12px">
+        {/* Mission */}
+        <div className="max-w-[485px]">
+          <div className="flex items-center gap-4 mb-8">
+            <Image 
+              src="/icons/mission.svg" 
+              alt="Mission" 
+              width={37} 
+              height={37} 
+              className="object-contain"
+            />
+            <div className="w-1 h-[75px] bg-[#F22929] rounded-full" />
+            <h3 style={{ 
+              fontSize: 'var(--heading-size, 24px)',
+              fontFamily: 'Inter',
+              fontWeight: 600,
+              color: '#152C40'
+            }}>
+              Mission
+            </h3>
+          </div>
+          <p className="text-[20px] leading-[32px] text-[#152C40]">
+            At Express Shipping and Logistics, we are committed to delivering agile, reliable, and efficient shipping solutions, inspired by the speed, endurance, and adaptability of the magnificent frigate-bird.
+          </p>
+        </div>
+        
+
+        {/* Vision */}
+        <div className="max-w-[485px]">
+          <div className="flex items-center gap-4 mb-8">
+            <Image 
+              src="/icons/vision.svg" 
+              alt="Vision" 
+              width={37} 
+              height={37} 
+              className="object-contain"
+            />
+            <div className="w-1 h-[75px] bg-[#F22929] rounded-full" />
+            <h3 style={{ 
+              fontSize: 'var(--heading-size, 24px)',
+              fontFamily: 'Inter',
+              fontWeight: 600,
+              color: '#152C40'
+            }}>
+              Vision
+            </h3>
+          </div>
+          <p className="text-[20px] leading-[32px] text-[#152C40]">
+            Our vision is to become the leading logistics provider in the Maldives and the Indian Ocean region, recognized for our reliability and innovative solutions.
+          </p>
+        </div>
+      </div>
+
+              {/* Divider with animation */}
+              <motion.div 
+          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-24"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      />
+      
       {/* Expertise Section */}
-      <div className="w-full max-w-[1398px] mt-[90px]">
+      <div className="w-full max-w-[1398px] margin-top -12px">
         <h2 className="text-[#F22929] text-[32px] font-bold text-center mb-16">
           OUR EXPERTISE IN ACTION
         </h2>
@@ -117,64 +189,21 @@ export default function Home(): ReactElement {
             serviceId="local-logistics"
           />
         </div>
-      </div>
-
-      {/* Mission & Vision Section */}
-      <div className="w-full max-w-[1398px] space-x-40 flex justify-center mt-24">
-        {/* Mission */}
-        <div className="max-w-[485px]">
-          <div className="flex items-center gap-4 mb-8">
-            <Image 
-              src="/icons/mission.svg" 
-              alt="Mission" 
-              width={37} 
-              height={37} 
-              className="object-contain"
-            />
-            <div className="w-1 h-[75px] bg-[#F22929] rounded-full" />
-            <h3 style={{ 
-              fontSize: 'var(--heading-size, 24px)',
-              fontFamily: 'Inter',
-              fontWeight: 600,
-              color: '#152C40'
-            }}>
-              Mission
-            </h3>
-          </div>
-          <p className="text-[20px] leading-[32px] text-[#152C40]">
-            At Express Shipping and Logistics, we are committed to delivering agile, reliable, and efficient shipping solutions, inspired by the speed, endurance, and adaptability of the magnificent frigate-bird.
-          </p>
-        </div>
-
-        {/* Vision */}
-        <div className="max-w-[485px]">
-          <div className="flex items-center gap-4 mb-8">
-            <Image 
-              src="/icons/vision.svg" 
-              alt="Vision" 
-              width={37} 
-              height={37} 
-              className="object-contain"
-            />
-            <div className="w-1 h-[75px] bg-[#F22929] rounded-full" />
-            <h3 style={{ 
-              fontSize: 'var(--heading-size, 24px)',
-              fontFamily: 'Inter',
-              fontWeight: 600,
-              color: '#152C40'
-            }}>
-              Vision
-            </h3>
-          </div>
-          <p className="text-[20px] leading-[32px] text-[#152C40]">
-            Our vision is to become the leading logistics provider in the Maldives and the Indian Ocean region, recognized for our reliability and innovative solutions.
-          </p>
+        
+        <div className="flex justify-center w-full mt-20">
+          <Link 
+            href="/global-partners" 
+            className="mt-8 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Global Partners
+          </Link>
         </div>
       </div>
+
 
         {/* Divider with animation */}
         <motion.div 
-          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-24"
+          className="w-full max-w-[1398px] h-[1px] bg-[#444444] rounded-full my-20 mt-28"
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
