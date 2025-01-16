@@ -6,6 +6,7 @@ import Image from 'next/image';
 import ServiceCard from '../components/ServiceCard';
 import { Globe } from '@/components/ui/globe'
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Home(): ReactElement {
   const fadeInUp = {
@@ -13,6 +14,8 @@ export default function Home(): ReactElement {
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 }
   };
+
+  const router = useRouter();
 
   return (
     <main className="min-h-screen bg-white flex flex-col items-center">
@@ -191,12 +194,42 @@ export default function Home(): ReactElement {
         </div>
         
         <div className="flex justify-center w-full mt-20">
-          <Link 
-            href="/global-partners" 
-            className="mt-8 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          <motion.button
+            onClick={() => router.push('/global-partners')}
+            className="mx-auto flex items-center gap-3 
+                     px-6 py-3 rounded-full border border-transparent
+                     hover:border-[#2B84EA]/20 hover:bg-[#2B84EA]/5
+                     transition-all duration-300"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ y: -5 }}
+            whileTap={{ scale: 0.98 }}
           >
-            Global Partners
-          </Link>
+            <motion.div
+              className="flex items-center justify-center w-10 h-10 rounded-full 
+                       bg-[#152C40] text-white"
+              whileHover={{ rotate: -360 }}
+              transition={{ duration: 0.5 }}
+            >
+              <svg 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor"
+                className="transform rotate-180"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </motion.div>
+            <span className="text-[#152C40] font-medium text-lg">Global Partners</span>
+          </motion.button>
         </div>
       </div>
 
