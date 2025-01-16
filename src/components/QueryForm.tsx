@@ -1,277 +1,104 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 
-interface ServiceOption {
-  type: string;
-  details: string[];
-}
+export default function QueryForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    contact: '',
+    email: '',
+    message: ''
+  });
 
-const serviceOptions: ServiceOption[] = [
-  {
-    type: "Express Shipping",
-    details: ["International", "Domestic", "Same Day", "Next Day"]
-  },
-  {
-    type: "Freight Forwarding",
-    details: ["Air Freight", "Sea Freight", "Land Freight", "Multi-modal"]
-  },
-  {
-    type: "Customs Clearance",
-    details: ["Import", "Export", "Transit", "Documentation"]
-  }
-];
-
-interface QueryFormProps {
-  initialService?: string;
-  serviceDetails?: string[];
-}
-
-export default function QueryForm({ initialService, serviceDetails }: QueryFormProps) {
-  // Add state variables
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [message, setMessage] = useState('');
-  const [selectedService, setSelectedService] = useState('');
-  const [selectedDetail, setSelectedDetail] = useState('');
-  const [availableDetails, setAvailableDetails] = useState<string[]>([]);
-  
-  // Add submitStatus state
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  useEffect(() => {
-    if (initialService) {
-      setSelectedService(initialService);
-      
-      // Find the corresponding service option and set its details
-      const service = serviceOptions.find(s => s.type === initialService);
-      if (service) {
-        setAvailableDetails(serviceDetails || service.details);
-      }
-    }
-  }, [initialService, serviceDetails]);
-
-  useEffect(() => {
-    const service = serviceOptions.find(s => s.type === selectedService);
-    setAvailableDetails(service?.details || []);
-    setSelectedDetail('');
-  }, [selectedService]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          message,
-          serviceType: selectedService,
-          serviceDetail: selectedDetail
-        }),
-      });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        // Reset form
-        setName('');
-        setEmail('');
-        setPhone('');
-        setMessage('');
-        setSelectedService('');
-        setSelectedDetail('');
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      console.error('Submission error:', error);
-      setSubmitStatus('error');
-    }
-
-    // Reset status after 3 seconds
-    setTimeout(() => setSubmitStatus('idle'), 3000);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-8">
-      <h3 className="text-[32px] font-black text-[#152C40]">
-        SEND US A MESSAGE
-      </h3>
-
-      <div className="flex flex-col gap-5">
-        <div className="input_container">
-          <label className="text-[#6B7280] text-sm mb-2 block">
-            Service Type
-          </label>
-          <div className="relative">
-            <select
-              id="serviceType"
-              value={selectedService}
-              onChange={(e) => setSelectedService(e.target.value)}
-              className="w-full h-[50px] px-4 rounded-[30px] bg-[#F9FAFB] border border-[#E5E5E5]
-                       appearance-none outline-none transition-all duration-300 
-                       focus:border-[#152C40] focus:bg-white pr-12"
-              required
-            >
-              <option value="">Select a Service</option>
-              {serviceOptions.map((service) => (
-                <option key={service.type} value={service.type}>
-                  {service.type}
-                </option>
-              ))}
-            </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-              <div className="w-6 h-6 rounded-full bg-[#152C40] flex items-center justify-center">
-                <svg 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="white"
-                  className="transform -rotate-90"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {selectedService && (
-          <div className="input_container">
-            <label className="text-[#6B7280] text-sm mb-2 block">
-              Service Detail
-            </label>
-            <div className="relative">
-              <select
-                id="serviceDetail"
-                value={selectedDetail}
-                onChange={(e) => setSelectedDetail(e.target.value)}
-                className="w-full h-[50px] px-4 rounded-[30px] bg-[#F9FAFB] border border-[#E5E5E5]
-                         appearance-none outline-none transition-all duration-300 
-                         focus:border-[#152C40] focus:bg-white pr-12"
-                required
-              >
-                <option value="">Select Service Detail</option>
-                {availableDetails.map((detail) => (
-                  <option key={detail} value={detail}>
-                    {detail}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                <div className="w-6 h-6 rounded-full bg-[#152C40] flex items-center justify-center">
-                  <svg 
-                    width="14" 
-                    height="14" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="white"
-                    className="transform -rotate-90"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="input_container">
-          <label className="text-[#6B7280] text-sm mb-2 block">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full h-[50px] px-4 rounded-[30px] bg-[#F9FAFB] border border-[#E5E5E5]
-                     outline-none transition-all duration-300 
-                     focus:border-[#152C40] focus:bg-white"
-            required
+    <div className="w-[398px] h-[613.25px] bg-[#FAFAFA] border-[0.3px] border-[#8F8F8F] rounded-[40px] p-5">
+      {/* Header */}
+      <div className="flex items-center gap-4 mt-6 mb-6">
+        <div className="relative w-[29px] h-[29px]">
+          <Image 
+            src="/icons/query.svg"
+            alt="Query"
+            fill
+            className="object-contain"
           />
         </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div className="input_container">
-            <label className="text-[#6B7280] text-sm mb-2 block">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full h-[50px] px-4 rounded-[30px] bg-[#F9FAFB] border border-[#E5E5E5]
-                       outline-none transition-all duration-300 
-                       focus:border-[#152C40] focus:bg-white"
-              required
-            />
-          </div>
-
-          <div className="input_container">
-            <label className="text-[#6B7280] text-sm mb-2 block">
-              Phone
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full h-[50px] px-4 rounded-[30px] bg-[#F9FAFB] border border-[#E5E5E5]
-                       outline-none transition-all duration-300 
-                       focus:border-[#152C40] focus:bg-white"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="input_container">
-          <label className="text-[#6B7280] text-sm mb-2 block">
-            Message
-          </label>
-          <textarea
-            id="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            rows={4}
-            className="w-full p-4 rounded-[30px] bg-[#F9FAFB] border border-[#E5E5E5]
-                     outline-none transition-all duration-300 
-                     focus:border-[#152C40] focus:bg-white resize-none"
-            required
-          />
-        </div>
+        <div className="w-[3px] h-[41px] bg-[#F22929] rounded-full" />
+        <h2 className="text-[#152C40] text-[20px] font-bold">
+          Submit your Query
+        </h2>
       </div>
 
-      <button
-        type="submit"
-        className="w-full h-[50px] bg-[#152C40] text-white font-medium rounded-[30px]
-                 transition-all duration-300 hover:bg-[#1e3a54]"
-      >
-        Send Message
-      </button>
+      {/* Form Fields */}
+      <form className="space-y-[22px] mt-10">
+        <div className="space-y-1">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-[356px] h-[43px] px-6 rounded-[50px] 
+                     border-[0.3px] border-[#8F8F8F] bg-[#F5F5F5]
+                     focus:outline-none focus:border-[#152C40]
+                     placeholder:text-[#8F8F8F] text-[14px]"
+          />
+        </div>
 
-      {submitStatus === 'success' && (
-        <p className="text-green-600 text-center text-sm">Message sent successfully!</p>
-      )}
-      {submitStatus === 'error' && (
-        <p className="text-red-600 text-center text-sm">Failed to send message. Please try again.</p>
-      )}
-    </form>
+        <div className="space-y-1">
+          <input
+            type="tel"
+            name="contact"
+            placeholder="Contact Number"
+            value={formData.contact}
+            onChange={handleChange}
+            className="w-[356px] h-[43px] px-6 rounded-[50px] 
+                     border-[0.3px] border-[#8F8F8F] bg-[#F5F5F5]
+                     focus:outline-none focus:border-[#152C40]
+                     placeholder:text-[#8F8F8F] text-[14px]"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-[356px] h-[43px] px-6 rounded-[50px] 
+                     border-[0.3px] border-[#8F8F8F] bg-[#F5F5F5]
+                     focus:outline-none focus:border-[#152C40]
+                     placeholder:text-[#8F8F8F] text-[14px]"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <textarea
+            name="message"
+            placeholder="Message"
+            value={formData.message}
+            onChange={handleChange}
+            className="w-[356px] h-[141px] px-6 py-4 rounded-[35px] 
+                     border-[0.3px] border-[#8F8F8F] bg-[#F5F5F5]
+                     focus:outline-none focus:border-[#152C40] resize-none
+                     placeholder:text-[#8F8F8F] text-[14px]"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div className="flex justify-center mt-[18px]">
+          <button
+            type="submit"
+            className="w-[165px] h-[43px] bg-[#152C40] text-white text-[16px]
+                     rounded-[50px] hover:bg-[#1c3b57] transition-colors"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   );
 } 

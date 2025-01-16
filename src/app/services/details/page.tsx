@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
 import ServiceCardExpanded from '@/components/ServiceCardExpanded';
 import QueryForm from '@/components/QueryForm';
+import Link from 'next/link';
 
 interface ServiceDetail {
   title: string;
@@ -166,74 +167,101 @@ function DetailsContent() {
   };
 
   return (
-    <main className="flex-1 bg-white flex flex-col items-center">
-      {/* Service Content Section */}
-      <div className="w-full max-w-[1398px] flex flex-col lg:flex-row gap-8 px-4 mt-16">
-        {/* Expanded Service Card */}
-        {currentService && (
-          <div className="lg:w-1/2">
-            <ServiceCardExpanded
-              title={currentService.title}
-              icon={currentService.icon}
-              description={currentService.description}
-              details={currentService.details}
-            />
-          </div>
-        )}
-
-        {/* Query Form Section */}
-        <motion.div 
-          className="lg:w-1/2 bg-[#FAFAFA] border border-[#8F8F8F] rounded-[50px] p-16
-                     shadow-lg hover:shadow-xl transition-shadow duration-300"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <QueryForm 
-            initialService={currentService?.title.split('\n')[0] || ''} 
-            serviceDetails={currentService?.details || []}
-          />
-        </motion.div>
-      </div>
-
-      {/* Back Button */}
-      <motion.button
-        onClick={() => router.push('/')}
-        className="mx-auto mt-16 mb-20 flex items-center gap-3 
-                 px-6 py-3 rounded-full border border-transparent
-                 hover:border-[#2B84EA]/20 hover:bg-[#2B84EA]/5
-                 transition-all duration-300"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        whileHover={{ y: -5 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        <motion.div
-          className="flex items-center justify-center w-10 h-10 rounded-full 
-                   bg-[#152C40] text-white"
-          whileHover={{ rotate: -360 }}
-          transition={{ duration: 0.5 }}
-        >
-          <svg 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor"
-            className="transform"
+    <div className="w-full min-h-screen bg-white">
+      <div className="max-w-[1398px] mx-auto px-4 sm:px-6 lg:px-[57px] py-12">
+        <div className="flex flex-col lg:flex-row gap-10 items-center justify-center">
+          {/* Service Details Card */}
+          <motion.div 
+            className="w-full lg:w-[398px] bg-[#152C40] rounded-[50px] overflow-hidden
+                       shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </motion.div>
-        <span className="text-[#152C40] font-medium text-lg">Back to Services</span>
-      </motion.button>
-    </main>
+            {/* Service Content */}
+            <div className="p-10">
+              <div className="flex items-center gap-6 mb-8">
+                <div className="relative w-[39px] h-[37px]">
+                  <Image 
+                    src={`/icons/${currentService?.icon}_w.svg`}
+                    alt={currentService?.title || ''}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="w-[4px] h-[75px] bg-[#F22929] rounded-full" />
+                <h1 className="text-2xl font-bold text-white">
+                  {currentService?.title}
+                </h1>
+              </div>
+
+              <p className="text-white/90 text-lg leading-relaxed mb-8">
+                {currentService?.description}
+              </p>
+
+              <div className="space-y-4">
+                {currentService?.details.map((detail, index) => (
+                  <div key={index} className="flex items-center gap-4 text-white">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#2B84EA]" />
+                    <span className="text-lg">{detail}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Query Form */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex justify-center"
+          >
+            <QueryForm />
+          </motion.div>
+        </div>
+
+        {/* Back Button */}
+        <div className="w-full flex justify-center">
+          <motion.button
+            onClick={() => router.push('/')}
+            className="mt-16 mb-20 flex items-center gap-3 
+                     px-6 py-3 rounded-full border border-transparent
+                     hover:border-[#2B84EA]/20 hover:bg-[#2B84EA]/5
+                     transition-all duration-300"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ y: -5 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <motion.div
+              className="flex items-center justify-center w-10 h-10 rounded-full 
+                       bg-[#152C40] text-white"
+              whileHover={{ rotate: -360 }}
+              transition={{ duration: 0.5 }}
+            >
+              <svg 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor"
+                className="transform"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </motion.div>
+            <span className="text-[#152C40] font-medium text-lg">Back to Home</span>
+          </motion.button>
+        </div>
+      </div>
+    </div>
   );
 }
 
