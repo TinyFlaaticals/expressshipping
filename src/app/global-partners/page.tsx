@@ -10,9 +10,9 @@ export default function GlobalPartners() {
   return (
     <main className="min-h-screen bg-white flex flex-col items-center">
       {/* Global Partners Content */}
-      <div className="w-full max-w-[1398px] mt-12">
+      <div className="w-full max-w-[1300px] mt-28">
         {/* Content Container */}
-        <div className="flex justify-stretch gap-8">
+        <div className="flex justify-stretch gap-20 text-justify">
           {/* OLO Section */}
           <div className="flex-1">
             <div className="flex gap-10">
@@ -65,7 +65,7 @@ export default function GlobalPartners() {
       {/* Back Button */}
       <motion.button
         onClick={() => router.push('/')}
-        className="mx-auto mt-16 mb-20 flex items-center gap-3 
+        className="mx-auto mt-24 mb-20 flex items-center gap-3 
                  px-6 py-3 rounded-full border border-transparent
                  hover:border-[#2B84EA]/20 hover:bg-[#2B84EA]/5
                  transition-all duration-300"

@@ -172,7 +172,7 @@ function DetailsContent() {
         <div className="flex flex-col lg:flex-row gap-10 items-center justify-center">
           {/* Service Details Card */}
           <motion.div 
-            className="w-full lg:w-[398px] bg-[#152C40] rounded-[50px] overflow-hidden
+            className="w-full lg:w-[398px] bg-[#152C40] rounded-[40px] overflow-hidden
                        shadow-xl hover:shadow-2xl transition-shadow duration-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

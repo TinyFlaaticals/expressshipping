@@ -39,13 +39,13 @@ export default function Home(): ReactElement {
 
       {/* About Section */}
       <div className="max-w-[1162px] text-center mt-[30px]">
-        <p className="text-[20px] leading-relaxed text-black mb-6">
+        <p className="text-[17px] leading-relaxed text-black mb-6">
           Express Shipping and Logistics is a leading freight and logistics provider based in the Maldives, 
           specializing in seamless, reliable, and efficient transportation solutions. With over 15 years of 
           collective experience in shipping and logistics, our team brings extensive expertise and a deep 
           understanding of the region.
         </p>
-        <p className="text-[20px] leading-relaxed text-black">
+        <p className="text-[17px] leading-relaxed text-black">
           We are committed to connecting businesses in the Maldives with global markets through innovative and 
           tailored services. Our strategic location in the Maldives enables us to optimize both international 
           and project-based shipping and logistics management, bridging local businesses with global markets.
@@ -75,7 +75,7 @@ export default function Home(): ReactElement {
               Mission
             </h3>
           </div>
-          <p className="text-[20px] leading-[32px] text-[#152C40]">
+          <p className="text-[17px] leading-[32px] text-[#152C40]">
             At Express Shipping and Logistics, we are committed to delivering agile, reliable, and efficient shipping solutions, inspired by the speed, endurance, and adaptability of the magnificent frigate-bird.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function Home(): ReactElement {
               Vision
             </h3>
           </div>
-          <p className="text-[20px] leading-[32px] text-[#152C40]">
+          <p className="text-[17px] leading-[32px] text-[#152C40]">
             Our vision is to become the leading logistics provider in the Maldives and the Indian Ocean region, recognized for our reliability and innovative solutions.
           </p>
         </div>

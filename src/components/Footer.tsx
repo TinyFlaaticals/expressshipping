@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const Footer = () => {
   return (
-    <div className="w-full max-w-[1398px] mx-auto px-4 sm:px-6 lg:px-[57px]">
+    <div className="w-screen max-w-[1398px] mx-auto px-4 sm:px-0">
       {/* Divider with animation - Exactly matching page divider */}
       <motion.div 
         className="w-full h-[1px] bg-[#444444] rounded-full my-20 md:my-20"
