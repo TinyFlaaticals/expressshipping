@@ -167,8 +167,8 @@ function DetailsContent() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-white">
-      <div className="max-w-[1398px] mx-auto px-4 sm:px-6 lg:px-[57px] py-12">
+    <div className="w-full min-h-0 bg-white">
+      <div className="max-w-[1398px] mx-auto px-4 sm:px-6 lg:px-[57px] py-12 mt-10">
         <div className="flex flex-col lg:flex-row gap-10 items-center justify-center">
           {/* Service Details Card */}
           <motion.div 

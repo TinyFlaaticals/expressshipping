@@ -8,7 +8,7 @@ export default function GlobalPartners() {
   const router = useRouter();
 
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center">
+    <main className="min-h-0 bg-white flex flex-col items-center">
       {/* Global Partners Content */}
       <div className="w-full max-w-[1300px] mt-28">
         {/* Content Container */}
