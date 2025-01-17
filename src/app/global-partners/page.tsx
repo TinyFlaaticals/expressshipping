@@ -10,14 +10,14 @@ export default function GlobalPartners() {
   return (
     <main className="min-h-0 bg-white flex flex-col items-center">
       {/* Global Partners Content */}
-      <div className="w-full max-w-[1300px] mt-28">
+      <div className="w-full max-w-[1300px] mt-16 lg:mt-28 px-4 lg:px-0">
         {/* Content Container */}
-        <div className="flex justify-stretch gap-20 text-justify">
+        <div className="flex flex-col lg:flex-row justify-stretch gap-10 lg:gap-20 text-justify">
           {/* OLO Section */}
           <div className="flex-1">
-            <div className="flex gap-10">
+            <div className="flex gap-6 lg:gap-10">
               {/* Red Vertical Line */}
-              <div className="w-1 h-[75px] bg-[#F22929] rounded-full" />
+              <div className="w-1 h-[60px] lg:h-[75px] bg-[#F22929] rounded-full" />
               
               {/* OLO Logo */}
               <Image 
@@ -30,19 +30,20 @@ export default function GlobalPartners() {
             </div>
 
             {/* OLO Description */}
-            <p className="text-black text-[17px] leading-[32px] mt-8 max-w-[587px]">
+            <p className="text-black text-[15px] lg:text-[17px] leading-[28px] lg:leading-[32px] 
+                         mt-6 lg:mt-8 max-w-full lg:max-w-[587px]">
               OLO (Orange logistics organization) is an e-commerce platform providing integrated services for global logistics enterprises, relying on vast global logistics enterprise cooperation alliance, building intelligent and efficient online marketing promotion and acquiring customers platform, establishing safe and convenient global payment and settlement system, through the industry big data analysis and accurate portraits to build global logistics enterprise credit system. OLO aims to provide full services for global logistics enterprise, by means of marketing promotion, online acquiring customers, agents developing, cooperation guarantee, payment settlement, global conference etc. With continuous innovation and "sincerity" services to promote the industrial development and help the growth of enterprises. Currently with over 800 members spread across 80+ countries, Express Shipping and Logistics stands out as the sole Maldivian member of the network.
             </p>
           </div>
 
-          {/* Vertical Divider */}
-          <div className="w-[1px] bg-[#8F8F8F] mx-4 self-stretch" />
+          {/* Vertical Divider - Hidden on mobile */}
+          <div className="hidden lg:block w-[1px] bg-[#8F8F8F] mx-4 self-stretch" />
 
           {/* FFN Section */}
           <div className="flex-1">
             <div className="flex gap-3">
               {/* Red Vertical Line */}
-              <div className="w-1 h-[75px] bg-[#F22929] rounded-full" />
+              <div className="w-1 h-[60px] lg:h-[75px] bg-[#F22929] rounded-full" />
               
               {/* FFN Logo */}
               <Image 
@@ -55,7 +56,8 @@ export default function GlobalPartners() {
             </div>
 
             {/* FFN Description */}
-            <p className="text-black text-[17px] leading-[32px] mt-8 max-w-[587px]">
+            <p className="text-black text-[15px] lg:text-[17px] leading-[28px] lg:leading-[32px] 
+                         mt-6 lg:mt-8 max-w-full lg:max-w-[587px]">
               Based in Dubai, the international heart of the United Arab Emirates; FRONTLINE FREIGHT NETWORKS is a Global Family of Freight Forwarders, NVOCC, Consolidators, Multimodal Operators, Custom Brokers, Vessel Agencies & All Shipping Related Activities, Viz Vessel Chartering, Project Cargo, Break Bulk Managers etc. Founded in 2009 by Managing Director Mr. Najam Ul Hoda, with a vision of simplifying and modernizing the freight forwarding process. With his 20+ years of experience in various sectors of the industry, the network has grown significantly under his stewardship. Today the network proudly constitutes of 103+ Members in 105+ countries, of which we (Express Shipping and Logistics) are the sole Maldivian Member. Express Shipping and Logistics has been a member of FFN since 2019, and after our Managing Director Mr. Ashraf attended several prior AGMS in Dubai, Istanbul, Malaysia etc. Our team was chosen as the host member for the 14th AGM, held at the CROSSROADS Maldives. The first and to this date, the only kind of event held in our nation.
             </p>
           </div>
@@ -65,7 +67,7 @@ export default function GlobalPartners() {
       {/* Back Button */}
       <motion.button
         onClick={() => router.push('/')}
-        className="mx-auto mt-24 mb-20 flex items-center gap-3 
+        className="mx-auto mt-12 lg:mt-24 mb-12 lg:mb-20 flex items-center gap-3 
                  px-6 py-3 rounded-full border border-transparent
                  hover:border-[#2B84EA]/20 hover:bg-[#2B84EA]/5
                  transition-all duration-300"

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import Image from 'next/image';
 
@@ -14,9 +16,9 @@ export default function QueryForm() {
   };
 
   return (
-    <div className="w-[398px] h-[613.25px] bg-[#FAFAFA] border-[0.3px] border-[#8F8F8F] rounded-[40px] p-5">
+    <div className="w-[435px] h-[613.25px] bg-[#FAFAFA] border-[0.3px] border-[#8F8F8F] rounded-[50px] p-8">
       {/* Header */}
-      <div className="flex items-center gap-4 mt-6 mb-6">
+      <div className="flex items-center gap-4 mb-6">
         <div className="relative w-[29px] h-[29px]">
           <Image 
             src="/icons/query.svg"
@@ -25,14 +27,14 @@ export default function QueryForm() {
             className="object-contain"
           />
         </div>
-        <div className="w-[3px] h-[41px] bg-[#F22929] rounded-full" />
+        <div className="w-[4px] h-[41px] bg-[#F22929] rounded-full" />
         <h2 className="text-[#152C40] text-[20px] font-bold">
           Submit your Query
         </h2>
       </div>
 
       {/* Form Fields */}
-      <form className="space-y-[22px] mt-10">
+      <form className="space-y-[22px]">
         <div className="space-y-1">
           <input
             type="text"

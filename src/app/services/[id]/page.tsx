@@ -1,12 +1,18 @@
-'use client';
-
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import QueryForm from "@/components/QueryForm";
+import { Metadata } from "next";
 
-export default function ServiceDetails({ params }: { params: { id: string } }) {
-  const router = useRouter();
+type Props = {
+  params: { id: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  return {
+    title: `${params.id.replace('-', ' ')} - Express Shipping`,
+    description: `Learn more about our ${params.id.replace('-', ' ')} services`
+  }
+}
+
+export default async function ServiceDetails({ params }: Props) {
   const currentService = params.id;
 
   return (
@@ -14,22 +20,18 @@ export default function ServiceDetails({ params }: { params: { id: string } }) {
       <div className="max-w-[1398px] mx-auto px-4 sm:px-6 lg:px-[57px] py-12">
         <div className="flex flex-col lg:flex-row gap-10 items-center justify-center">
           {/* Service Details Card */}
-          <motion.div 
+          <div 
             className="w-full lg:w-[398px] bg-[#152C40] rounded-[50px] overflow-hidden
-                       shadow-xl hover:shadow-2xl transition-shadow duration-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+                     shadow-xl hover:shadow-2xl transition-shadow duration-300"
           >
             {/* Service Content */}
             <div className="p-10">
               <div className="flex items-center gap-6 mb-8">
                 <div className="relative w-[39px] h-[37px]">
-                  <Image 
+                  <img 
                     src={`/icons/${currentService}_w.svg`}
                     alt={currentService}
-                    fill
-                    className="object-contain"
+                    className="object-contain w-full h-full"
                   />
                 </div>
                 <div className="w-[4px] h-[75px] bg-[#F22929] rounded-full" />
@@ -38,38 +40,26 @@ export default function ServiceDetails({ params }: { params: { id: string } }) {
                 </h1>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Query Form */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex justify-center"
-          >
+          <div className="flex justify-center">
             <QueryForm />
-          </motion.div>
+          </div>
         </div>
 
         {/* Back Button */}
         <div className="w-full flex justify-center">
-          <motion.button
-            onClick={() => router.push('/')}
+          <a
+            href="/"
             className="mt-16 mb-20 flex items-center gap-3 
                      px-6 py-3 rounded-full border border-transparent
                      hover:border-[#2B84EA]/20 hover:bg-[#2B84EA]/5
-                     transition-all duration-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ y: -5 }}
-            whileTap={{ scale: 0.98 }}
+                     transition-all duration-300 group"
           >
-            <motion.div
+            <div
               className="flex items-center justify-center w-10 h-10 rounded-full 
-                       bg-[#152C40] text-white"
-              whileHover={{ rotate: -360 }}
-              transition={{ duration: 0.5 }}
+                       bg-[#152C40] text-white group-hover:-translate-x-1 transition-transform"
             >
               <svg 
                 width="24" 
@@ -86,9 +76,9 @@ export default function ServiceDetails({ params }: { params: { id: string } }) {
                   d="M15 19l-7-7 7-7"
                 />
               </svg>
-            </motion.div>
+            </div>
             <span className="text-[#152C40] font-medium text-lg">Back to Home</span>
-          </motion.button>
+          </a>
         </div>
       </div>
     </div>

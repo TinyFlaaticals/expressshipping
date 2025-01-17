@@ -14,13 +14,16 @@
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
     "framer-motion": "^11.17.0",
+    "glob": "^11.0.1",
+    "lru-cache": "^11.0.2",
     "lucide-react": "^0.471.1",
     "next": "15.1.4",
     "nodemailer": "^6.9.16",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

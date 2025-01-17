@@ -21,53 +21,57 @@ export default function Home(): ReactElement {
     <main className="min-h-screen bg-white flex flex-col items-center">
       {/* Hero Section */}
       <motion.div 
-        className="relative w-full max-w-[1398px] h-[817px] bg-[#152C40] rounded-[55px] flex flex-col items-center mt-[40px] overflow-hidden"
+        className="relative w-full max-w-[1398px] h-[400px] lg:h-[817px] 
+                   bg-[#152C40] rounded-[30px] lg:rounded-[55px] 
+                   flex flex-col items-center mt-[20px] lg:mt-[40px] 
+                   overflow-hidden mx-10 lg:mx-10"
         {...fadeInUp}
       >
         <Globe />
       </motion.div>
 
       {/* Hero Text Section */}
-      <div className="w-full max-w-[1162px] text-center mt-[60px]">
-        <h1 className="text-[45px] font-black text-[#152C40] mb-4" style={{ fontFamily: 'Inter' }}>
+      <div className="w-full max-w-[1162px] text-center mt-[30px] lg:mt-[60px] px-10 lg:px-10">
+        <h1 className="text-[28px] lg:text-[45px] font-black text-[#152C40] mb-3 lg:mb-4 leading-tight" 
+            style={{ fontFamily: 'Inter' }}>
           THE MALDIVES' LOGISTICS EXPERTS
         </h1>
-        <h2 className="text-[24px] text-[#152C40] mb-[40px]">
+        <h2 className="text-[18px] lg:text-[24px] text-[#152C40] mb-[30px] lg:mb-[40px]">
           Reliable Logistics, Beyond Boundaries
         </h2>
       </div>
 
       {/* About Section */}
-      <div className="max-w-[1162px] text-center mt-[30px]">
-        <p className="text-[17px] leading-relaxed text-black mb-6">
+      <div className="w-full max-w-[1162px] text-center mt-[30px] px-10 lg:px-10">
+        <p className="text-[15px] lg:text-[17px] text-justify leading-relaxed text-black mb-6">
           Express Shipping and Logistics is a leading freight and logistics provider based in the Maldives, 
           specializing in seamless, reliable, and efficient transportation solutions. With over 15 years of 
           collective experience in shipping and logistics, our team brings extensive expertise and a deep 
           understanding of the region.
         </p>
-        <p className="text-[17px] leading-relaxed text-black">
+        <p className="text-[15px] lg:text-[17px] text-justify leading-relaxed text-black mb-6">
           We are committed to connecting businesses in the Maldives with global markets through innovative and 
           tailored services. Our strategic location in the Maldives enables us to optimize both international 
           and project-based shipping and logistics management, bridging local businesses with global markets.
         </p>
       </div>
 
-
-            {/* Mission & Vision Section */}
-            <div className="w-full max-w-[1398px] space-x-40 flex justify-center mt-20">
+      {/* Mission & Vision Section */}
+      <div className="w-full max-w-[1398px] flex flex-col lg:flex-row lg:space-x-40 space-y-10 lg:space-y-0 
+                    justify-center mt-10 lg:mt-20 px-10 lg:px-10">
         {/* Mission */}
         <div className="max-w-[485px]">
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-6 lg:mb-8">
             <Image 
               src="/icons/mission.svg" 
               alt="Mission" 
-              width={37} 
-              height={37} 
-              className="object-contain"
+              width={32} 
+              height={32} 
+              className="object-contain w-[32px] h-[32px] lg:w-[37px] lg:h-[37px]"
             />
-            <div className="w-1 h-[75px] bg-[#F22929] rounded-full" />
+            <div className="w-1 h-[60px] lg:h-[75px] bg-[#F22929] rounded-full" />
             <h3 style={{ 
-              fontSize: 'var(--heading-size, 24px)',
+              fontSize: 'clamp(20px, 5vw, 24px)',
               fontFamily: 'Inter',
               fontWeight: 600,
               color: '#152C40'
@@ -75,25 +79,24 @@ export default function Home(): ReactElement {
               Mission
             </h3>
           </div>
-          <p className="text-[17px] leading-[32px] text-[#152C40]">
+          <p className="text-[15px] lg:text-[17px] leading-[28px] text-justify lg:leading-[32px] text-[#152C40]">
             At Express Shipping and Logistics, we are committed to delivering agile, reliable, and efficient shipping solutions, inspired by the speed, endurance, and adaptability of the magnificent frigate-bird.
           </p>
         </div>
-        
 
         {/* Vision */}
         <div className="max-w-[485px]">
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-6 lg:mb-8">
             <Image 
               src="/icons/vision.svg" 
               alt="Vision" 
-              width={37} 
-              height={37} 
-              className="object-contain"
+              width={32} 
+              height={32} 
+              className="object-contain w-[32px] h-[32px] lg:w-[37px] lg:h-[37px]"
             />
-            <div className="w-1 h-[75px] bg-[#F22929] rounded-full" />
+            <div className="w-1 h-[60px] lg:h-[75px] bg-[#F22929] rounded-full" />
             <h3 style={{ 
-              fontSize: 'var(--heading-size, 24px)',
+              fontSize: 'clamp(20px, 5vw, 24px)',
               fontFamily: 'Inter',
               fontWeight: 600,
               color: '#152C40'
@@ -101,7 +104,7 @@ export default function Home(): ReactElement {
               Vision
             </h3>
           </div>
-          <p className="text-[17px] leading-[32px] text-[#152C40]">
+          <p className="text-[15px] lg:text-[17px] leading-[28px] text-justify lg:leading-[32px] text-[#152C40]">
             Our vision is to become the leading logistics provider in the Maldives and the Indian Ocean region, recognized for our reliability and innovative solutions.
           </p>
         </div>
