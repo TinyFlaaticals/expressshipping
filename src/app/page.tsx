@@ -7,7 +7,6 @@ import ServiceCard from '../components/ServiceCard';
 import { Globe } from '@/components/ui/globe'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import QueryForm from '@/components/QueryForm';
 
 export default function Home(): ReactElement {
   const fadeInUp = {
