@@ -18,13 +18,13 @@ export default function Home(): ReactElement {
   const router = useRouter();
 
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center">
+    <main className="min-h-screen bg-white flex flex-col items-center px-2 lg:px-0">
       {/* Hero Section */}
       <motion.div 
-        className="relative w-full max-w-[1398px] h-[400px] lg:h-[817px] 
+        className="relative w-[calc(100%-16px)] lg:w-full max-w-[1398px] h-[400px] lg:h-[817px] 
                    bg-[#152C40] rounded-[30px] lg:rounded-[55px] 
                    flex flex-col items-center mt-[20px] lg:mt-[40px] 
-                   overflow-hidden mx-10 lg:mx-10"
+                   overflow-hidden mx-2 lg:mx-10"
         {...fadeInUp}
       >
         <Globe />

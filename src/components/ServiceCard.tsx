@@ -47,16 +47,17 @@ export default function ServiceCard({
         <div className="flex flex-col h-full">
           <div className="flex items-center px-[48px] py-[48px]">
             <div className="flex items-center gap-8">
-              <div className="relative w-[39px] h-[37px]">
+              <div className="relative w-[40px] h-[40px] flex items-center justify-center shrink-0">
                 <Image
                   src={`/icons/${icon}${isExpanded ? "_w" : ""}.svg`}
                   alt={title}
                   fill
-                  sizes="39px"
-                  className="object-contain"
+                  sizes="40px"
+                  className="object-contain p-1.5"
+                  style={{ minWidth: '40px', minHeight: '40px' }}
                 />
               </div>
-              <div className="w-[2px] h-[64px] bg-[#F22929] rounded-full" />
+              <div className="w-[4px] h-[64px] bg-[#F22929] rounded-full shrink-0" />
               <h3
                 className={`text-[20px] font-semibold whitespace-pre-line transition-colors duration-300 ${
                   isExpanded ? "text-white" : "text-[#152C40]"
@@ -131,16 +132,17 @@ export default function ServiceCard({
         <div className="flex flex-col h-full">
           <div className="flex items-center px-[64px] py-[48px]">
             <div className="flex items-center gap-8">
-              <div className="relative w-[39px] h-[37px]">
+              <div className="relative w-[40px] h-[40px] flex items-center justify-center shrink-0">
                 <Image
                   src={`/icons/${icon}${isExpanded ? "_w" : ""}.svg`}
                   alt={title}
                   fill
-                  sizes="39px"
-                  className="object-contain"
+                  sizes="40px"
+                  className="object-contain p-1.5"
+                  style={{ minWidth: '50px', minHeight: '50px' }}
                 />
               </div>
-              <div className="w-[2px] h-[64px] bg-[#F22929] rounded-full" />
+              <div className="w-[4px] h-[64px] bg-[#F22929] rounded-full shrink-0" />
               <h3
                 className={`text-[20px] font-semibold whitespace-pre-line transition-colors duration-300 ${
                   isExpanded ? "text-white" : "text-[#152C40]"
