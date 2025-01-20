@@ -99,10 +99,16 @@ const Footer = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        {['fb', 'insta', 'linkedin'].map((social) => (
+        {[
+          { id: 'fb', url: 'https://www.facebook.com/expressshipmv' },
+          { id: 'insta', url: 'https://www.instagram.com/expressshipmv/' },
+          { id: 'linkedin', url: 'https://www.linkedin.com/company/express-shipping-logistics' }
+        ].map((social) => (
           <motion.a
-            key={social}
-            href="#"
+            key={social.id}
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-[30px] h-[30px] flex items-center justify-center relative group"
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
@@ -113,8 +119,8 @@ const Footer = () => {
               initial={false}
             />
             <Image 
-              src={`/icons/social_${social}.svg`}
-              alt={social.charAt(0).toUpperCase() + social.slice(1)}
+              src={`/icons/social_${social.id}.svg`}
+              alt={social.id.charAt(0).toUpperCase() + social.id.slice(1)}
               width={30}
               height={30}
               className="object-contain transition-all duration-300 
