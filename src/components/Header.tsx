@@ -60,7 +60,7 @@ const Header = () => {
             <Mail size={20} />
           </a>
           <a 
-            href="tel:+1234567890" 
+            href="tel:+960938181" 
             className="p-2 hover:text-blue-600 transition-colors duration-300"
           >
             <Phone size={20} />
