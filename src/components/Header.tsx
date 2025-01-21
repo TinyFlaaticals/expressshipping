@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Mail, Phone } from 'lucide-react';
 
 const Header = () => {
   const router = useRouter();
@@ -11,39 +12,60 @@ const Header = () => {
     <div className="flex justify-center w-full">
       <motion.div 
         className="w-full max-w-[1398px] flex items-center justify-between
-                   px-4 sm:px-6 lg:px-[57px] pt-6 md:pt-[64px] gap-6 md:gap-0"
+                   px-4 sm:px-6 lg:px-[57px] pt-6 md:pt-[64px]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
         {/* Logo Icon - Clickable */}
         <Image 
-          src="/logo-icon.svg" 
+          src="/logo_full.svg" 
           alt="Express Shipping Logo" 
-          width={128} 
-          height={129}
+          width={293} 
+          height={192}
           style={{ 
-            width: 'clamp(80px, 15vw, 128px)',
-            height: 'auto',
+            width: '200px',
+            height: '100px',
             cursor: 'pointer'
           }}
-          className="hover:scale-105 transition-transform duration-300"
+          className="w-[200px] md:w-[293px] hover:scale-105 transition-transform duration-300"
           onClick={() => router.push('/')}
           priority
         />
 
-        {/* Logo Text */}
-        <Image 
-          src="/logo_text.svg" 
-          alt="Express Shipping & Logistics" 
-          width={411} 
-          height={108}
-          style={{ 
-            width: 'clamp(250px, 40vw, 411px)',
-            height: 'auto'
-          }}
-          priority
-        />
+        {/* Contact Information */}
+        <div className="hidden md:flex flex-col items-end gap-2">
+          <a 
+            href="mailto:info@expressshipping.com" 
+            className="flex items-center gap-2 hover:text-blue-600 transition-colors duration-300"
+          >
+            <Mail size={20} />
+            <span className="text-sm">info@expressshipping.mv</span>
+          </a>
+          <a 
+            href="tel:+1234567890" 
+            className="flex items-center gap-2 hover:text-blue-600 transition-colors duration-300"
+          >
+            <Phone size={20} />
+            <span className="text-sm">+960 938 1818</span>
+          </a>
+        </div>
+
+        {/* Mobile Contact Icons */}
+        <div className="flex md:hidden items-center gap-4">
+          <a 
+            href="mailto:info@expressshipping.com" 
+            className="p-2 hover:text-blue-600 transition-colors duration-300"
+          >
+            <Mail size={20} />
+          </a>
+          <a 
+            href="tel:+1234567890" 
+            className="p-2 hover:text-blue-600 transition-colors duration-300"
+          >
+            <Phone size={20} />
+          </a>
+        </div>
       </motion.div>
     </div>
   );

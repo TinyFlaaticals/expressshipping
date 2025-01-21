@@ -5,7 +5,6 @@ import { ReactElement } from "react";
 import Image from 'next/image';
 import ServiceCard from '../components/ServiceCard';
 import { Globe } from '@/components/ui/globe'
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function Home(): ReactElement {
