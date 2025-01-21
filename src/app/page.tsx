@@ -31,7 +31,7 @@ export default function Home(): ReactElement {
       </motion.div>
 
       {/* Hero Text Section */}
-      <div className="w-full max-w-[1162px] text-center mt-[30px] lg:mt-[60px] px-10 lg:px-10">
+      <div className="w-full max-w-[1162px] text-center mt-[30px] lg:mt-[60px] px-8 lg:px-8">
         <h1 className="text-[28px] lg:text-[45px] font-black text-[#152C40] mb-3 lg:mb-4 leading-tight" 
             style={{ fontFamily: 'Inter' }}>
           THE MALDIVES' LOGISTICS EXPERTS
@@ -42,7 +42,7 @@ export default function Home(): ReactElement {
       </div>
 
       {/* About Section */}
-      <div className="w-full max-w-[1162px] text-center mt-[30px] px-10 lg:px-10">
+      <div className="w-full max-w-[1162px] text-center mt-[30px] px-8 lg:px-8">
         <p className="text-[15px] lg:text-[17px] text-justify leading-relaxed text-black mb-6">
           Express Shipping and Logistics is a leading freight and logistics provider based in the Maldives, 
           specializing in seamless, reliable, and efficient transportation solutions. With over 15 years of 
@@ -58,7 +58,7 @@ export default function Home(): ReactElement {
 
       {/* Mission & Vision Section */}
       <div className="w-full max-w-[1398px] flex flex-col lg:flex-row lg:space-x-40 space-y-10 lg:space-y-0 
-                    justify-center mt-10 lg:mt-20 px-10 lg:px-10">
+                    justify-center mt-10 lg:mt-20 px-8 lg:px-8">
         {/* Mission */}
         <div className="max-w-[485px]">
           <div className="flex items-center gap-4 mb-6 lg:mb-8">
@@ -122,25 +122,25 @@ export default function Home(): ReactElement {
             title="Sea-to-Air Freight Forwarding"
             description="A cost-effective solution combining the affordability of sea freight with the speed of air transport to seamlessly meet your logistics needs."
             icon="plane"
-            serviceId="sea-to-air"
+            serviceId="sea-to-air-freight-forwarding"
           />
           <ServiceCard
             title="Freight Forwarding"
             description="Leveraging our global network, we provide reliable sea and air freight services, ensuring that your cargo reaches its destination securely and on time."
             icon="truck"
-            serviceId="freight"
+            serviceId="freight-forwarding"
           />
           <ServiceCard
             title="CustomsBrokerage Services"
             description="Ensuring smooth and hassle-free clearance for your shipments, managing key main regulatory requirements and optimizing your supply chain efficiency."
             icon="customs"
-            serviceId="customs"
+            serviceId="customs-brokerage-services"
           />
           <ServiceCard
             title="Courier Services"
             description="With a focus on speed and reliability, we deliver packages of all sizes swiftly, ensuring seamless delivery across various destinations."
             icon="courier"
-            serviceId="courier"
+            serviceId="courier-services"
           />
           <ServiceCard
             title="Warehousing"
@@ -149,10 +149,10 @@ export default function Home(): ReactElement {
             serviceId="warehousing"
           />
           <ServiceCard
-            title="Local Logistics in\nthe Maldives"
+            title="Local Logistics in the Maldives"
             description="From island-to-island logistics for less-than-container-load (LCL) shipments to large-scale project cargo, we provide comprehensive solutions across the Maldives."
             icon="location"
-            serviceId="local-logistics"
+            serviceId="local-logistics-in-the-maldives"
           />
         </div>
         

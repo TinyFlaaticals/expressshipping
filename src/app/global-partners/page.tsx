@@ -10,7 +10,7 @@ export default function GlobalPartners() {
   return (
     <main className="min-h-0 bg-white flex flex-col items-center">
       {/* Global Partners Content */}
-      <div className="w-full max-w-[1300px] mt-16 lg:mt-28 px-4 lg:px-0">
+      <div className="w-full max-w-[1300px] mt-16 lg:mt-28 px-8 lg:px-8">
         {/* Content Container */}
         <div className="flex flex-col lg:flex-row justify-stretch gap-10 lg:gap-20 text-justify">
           {/* OLO Section */}

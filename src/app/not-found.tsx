@@ -1,11 +1,19 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import QueryForm from '@/components/QueryForm';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
-export default function NotFound() {
+export default function QueryPage() {
+  const searchParams = useSearchParams();
+  const serviceId = searchParams.get('service') || '';
+  const serviceTitle = searchParams.get('title') || '';
+  const serviceIcon = searchParams.get('icon') || '';
+  const serviceDescription = searchParams.get('description') || '';
+
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center bg-white py-8 px-2 sm:px-4">
+    <div className="min-h-[80vh] flex flex-col items-center justify-center bg-white py-8 px-8 sm:px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -13,9 +21,25 @@ export default function NotFound() {
         className="flex flex-col md:flex-row gap-4 md:gap-8 items-start max-w-5xl w-full"
       >
         <div className="w-full md:flex-1">
-          <QueryForm />
+          <QueryForm serviceId={serviceId} serviceTitle={serviceTitle} />
         </div>
         <div className="w-full md:flex-1 space-y-3 mt-6 md:mt-0">
+          {serviceId && (
+            <div className="flex items-center gap-4 mb-6">
+              {serviceIcon && (
+                <div className="relative w-[28px] h-[28px]">
+                  <Image
+                    src={`/icons/${serviceIcon}.svg`}
+                    alt={serviceTitle}
+                    fill
+                    sizes="28px"
+                    className="object-contain"
+                  />
+                </div>
+              )}
+              <h2 className="text-xl font-semibold text-gray-800">{serviceTitle}</h2>
+            </div>
+          )}
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
             Send Us Your Query
           </h1>
@@ -26,4 +50,4 @@ export default function NotFound() {
       </motion.div>
     </div>
   );
-} 
+}
