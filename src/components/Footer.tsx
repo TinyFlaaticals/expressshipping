@@ -35,7 +35,7 @@ const Footer = () => {
               alt="Express Shipping & Logistics" 
               width={239} 
               height={192} 
-              className="w-[180px] md:w-[239px] h-auto hover:brightness-110 transition-all"
+              className="w-[100px] md:w-[200px] h-auto hover:brightness-110 transition-all"
             />
           </motion.div>
 
@@ -129,6 +129,25 @@ const Footer = () => {
             />
           </motion.a>
         ))}
+      </motion.div>
+
+      {/* Copyright Bar */}
+      <motion.div 
+        className="w-full border-t border-black/10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <div className="max-w-[1398px] mx-auto px-0 sm:px-0 lg:px-[57px] py-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
+            <p className="text-sm text-black/80 text-center sm:text-left">
+              © {new Date().getFullYear()} Express Shipping & Logistics. All rights reserved.
+            </p>
+            <p className="text-xs text-black/60 text-center sm:text-right">
+              Designed and Developed by codenest
+            </p>
+          </div>
+        </div>
       </motion.div>
     </div>
   );
