@@ -144,7 +144,7 @@ const Footer = () => {
               © {new Date().getFullYear()} Express Shipping & Logistics. All rights reserved.
             </p>
             <p className="text-xs text-black/60 text-center sm:text-right">
-              Designed and Developed by codenest
+              Designed and Developed by Codenest
             </p>
           </div>
         </div>

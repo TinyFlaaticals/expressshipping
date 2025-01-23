@@ -6,14 +6,14 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
+        source: '/:path*',
         has: [
           {
             type: 'host',
             value: 'www.expressshipping.mv',
           },
         ],
-        destination: 'https://expressshipping.mv',
+        destination: 'https://expressshipping.mv/:path*',
         permanent: true,
       },
     ];

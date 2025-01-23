@@ -245,7 +245,7 @@ const QueryForm = ({ serviceId = '', serviceTitle = '' }) => {
               name="dimensions"
               value={formData.dimensions}
               onChange={handleChange}
-              placeholder="Size in Dimension"
+              placeholder="Dimension in Meters"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />

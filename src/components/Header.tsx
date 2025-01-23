@@ -43,7 +43,7 @@ const Header = () => {
             <span className="text-sm">info@expressshipping.mv</span>
           </a>
           <a 
-            href="tel:+960938181" 
+            href="tel:+9609381818" 
             className="flex items-center gap-2 hover:text-blue-600 transition-colors duration-300"
           >
             <Phone size={20} />
@@ -60,7 +60,7 @@ const Header = () => {
             <Mail size={20} />
           </a>
           <a 
-            href="tel:+960938181" 
+            href="tel:+9609381818" 
             className="p-2 hover:text-blue-600 transition-colors duration-300"
           >
             <Phone size={20} />

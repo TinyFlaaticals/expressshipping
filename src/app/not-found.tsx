@@ -15,7 +15,7 @@ const QueryFormWrapper = () => {
   const serviceIcon = searchParams.get('icon') || '';
 
   return (
-    <div className="w-full md:flex-1">
+    <div className="w-full md:flex-1 mt-12">
       {serviceIcon && (
         <div className="flex items-center gap-4 mb-6">
           <div className="relative w-[28px] h-[28px]">
@@ -56,7 +56,7 @@ export default function NotFound() {
           <QueryFormWrapper />
         </Suspense>
 
-        <div className="w-full md:flex-1 space-y-3 mt-6 md:mt-0">
+        <div className="w-full md:flex-1 space-y-3 mt-6 md:mt-12">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
             Send Us Your Query
           </h1>
@@ -65,12 +65,13 @@ export default function NotFound() {
           </p>
           
           {/* Back Button */}
-          <div className="mt-8">
+          <div className="mt-20 md:text-left text-center">
             <motion.button
               onClick={() => router.push('/')}
               className="flex items-center gap-3 px-6 py-3 rounded-full
                        border border-transparent hover:border-[#2B84EA]/20 
-                       hover:bg-[#2B84EA]/5 transition-all duration-300"
+                       hover:bg-[#2B84EA]/5 transition-all duration-300
+                       mx-auto md:mx-0"
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.98 }}
             >
