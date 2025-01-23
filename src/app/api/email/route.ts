@@ -75,86 +75,254 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { name, email, contact, message } = body;
+    const { 
+      // Basic fields
+      name, 
+      email, 
+      contact, 
+      message,
+      service,
+      // Sea to Air fields
+      countryOfLoading,
+      destination,
+      // Freight Forwarding fields
+      deliveryAddress,
+      shippingMode,
+      // Common fields for all services
+      commodity,
+      weight,
+      dimensions 
+    } = body;
 
-    // Validate input
+    // Validate required fields
     if (!name || !email || !contact || !message) {
       return NextResponse.json(
         { 
           success: false, 
-          error: 'All fields are required' 
+          error: 'Required fields are missing' 
         },
-        { 
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
+        { status: 400 }
       );
     }
 
-    // Attempt to send email
+    const emailTemplate = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+          </style>
+        </head>
+        <body>
+          <div style="
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+          ">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 30px;">
+              <img src="https://expressshipping.mv/logo_full.svg" alt="Express Shipping Logo" style="width: 200px;">
+            </div>
+
+            <!-- Main Content -->
+            <div style="
+              background-color: #f8f9fa;
+              border-radius: 12px;
+              padding: 30px;
+              margin-bottom: 20px;
+            ">
+              <h2 style="
+                color: #152C40;
+                margin: 0 0 20px 0;
+                font-size: 24px;
+                font-weight: bold;
+              ">New Query Received</h2>
+
+              <!-- Basic Contact Information -->
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0 0 8px 0; color: #152C40;">
+                  <strong>Name:</strong> ${name}
+                </p>
+                <p style="margin: 0 0 8px 0; color: #152C40;">
+                  <strong>Email:</strong> ${email}
+                </p>
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Contact:</strong> ${contact}
+                </p>
+              </div>
+
+              <!-- Service Type -->
+              ${service ? `
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Service Requested:</strong> ${service}
+                </p>
+              </div>
+              ` : ''}
+
+              <!-- Service Specific Fields -->
+              ${countryOfLoading ? `
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Country of Loading:</strong> ${countryOfLoading}
+                </p>
+              </div>
+              ` : ''}
+
+              ${destination ? `
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Destination:</strong> ${destination}
+                </p>
+              </div>
+              ` : ''}
+
+              ${deliveryAddress ? `
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Delivery Address:</strong> ${deliveryAddress}
+                </p>
+              </div>
+              ` : ''}
+
+              ${shippingMode ? `
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Shipping Mode:</strong> ${shippingMode}
+                </p>
+              </div>
+              ` : ''}
+
+              ${commodity ? `
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Commodity:</strong> ${commodity}
+                </p>
+              </div>
+              ` : ''}
+
+              ${weight ? `
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Estimate Weight:</strong> ${weight} KG
+                </p>
+              </div>
+              ` : ''}
+
+              ${dimensions ? `
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+              ">
+                <p style="margin: 0; color: #152C40;">
+                  <strong>Dimensions:</strong> ${dimensions}
+                </p>
+              </div>
+              ` : ''}
+
+              <!-- Message -->
+              <div style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 15px;
+              ">
+                <p style="margin: 0 0 10px 0; color: #152C40;">
+                  <strong>Message:</strong>
+                </p>
+                <p style="
+                  margin: 0;
+                  color: #4a5568;
+                  line-height: 1.6;
+                  white-space: pre-wrap;
+                ">${message}</p>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="
+              text-align: center;
+              color: #718096;
+              font-size: 14px;
+              padding-top: 20px;
+              border-top: 1px solid #e2e8f0;
+            ">
+              <p style="margin: 0 0 10px 0;">
+                © ${new Date().getFullYear()} Express Shipping & Logistics
+              </p>
+              <p style="margin: 0; font-size: 12px;">
+                This is an automated message, please do not reply directly to this email.
+              </p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
+
+    // Send email
     const { data, error } = await resend.emails.send({
-      from: 'Express Shipping <onboarding@resend.dev>',
-      to: process.env.RECIPIENT_EMAIL,
+      from: "info@expressshipping.mv",
+      to: process.env.RECIPIENT_EMAIL!,
       subject: `New Query from ${name}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-          <h2>New Query</h2>
-          ${body.service ? `<p><strong>Service Requested:</strong> ${body.service}</p>` : ''}
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Contact:</strong> ${contact}</p>
-          <p><strong>Message:</strong></p>
-          <p>${message}</p>
-        </div>
-      `,
+      html: emailTemplate,
     });
 
     if (error) {
-      console.error('Resend API error:', error);
+      console.error('Failed to send email:', error);
       return NextResponse.json(
-        { 
-          success: false, 
-          error: error.message 
-        },
-        { 
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
+        { success: false, error: 'Failed to send email' },
+        { status: 500 }
       );
     }
 
-    return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Email sent successfully',
-        data 
-      },
-      { 
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
+    return NextResponse.json({ success: true, data });
   } catch (error) {
-    console.error('Server error:', error);
+    console.error('Error processing request:', error);
     return NextResponse.json(
-      { 
-        success: false, 
-        error: 'Internal server error',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { 
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
+      { success: false, error: 'Internal server error' },
+      { status: 500 }
     );
   }
-} 
+}

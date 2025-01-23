@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface EmailData {
   name: string;
@@ -8,79 +8,124 @@ interface EmailData {
   contact: string;
   message: string;
   service: string;
+  // Sea to Air fields
+  countryOfLoading?: string;
+  destination?: string;
+  commodity?: string;
+  weight?: string;
+  dimensions?: string;
+  // Freight Forwarding fields
+  deliveryAddress?: string;
+  shippingMode?: 'Sea' | 'Air';
 }
 
 const QueryForm = ({ serviceId = '', serviceTitle = '' }) => {
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState<EmailData>({
     name: '',
     email: '',
     contact: '',
     message: '',
     service: serviceId,
+    countryOfLoading: '',
+    destination: '',
+    commodity: '',
+    weight: '',
+    dimensions: '',
+    deliveryAddress: '',
+    shippingMode: undefined,
   });
 
-  const [status, setStatus] = useState<{
-    message: string;
-    isError: boolean;
-  }>({
+  const [status, setStatus] = useState({
     message: '',
-    isError: false,
+    isError: false
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.contact || !formData.message) {
-      setStatus({
-        message: "Please fill in all fields",
-        isError: true
-      });
-      return;
-    }
+    setStatus({ message: "Sending...", isError: false });
 
     try {
-      setStatus({ message: "Sending...", isError: false });
-      
       const response = await fetch('/api/email', {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          contact: formData.contact,
+          message: formData.message,
+          service: serviceTitle || serviceId,
+          // Include all service-specific fields
+          ...(isSeaToAir && {
+            countryOfLoading: formData.countryOfLoading,
+            destination: formData.destination,
+            commodity: formData.commodity,
+            weight: formData.weight,
+            dimensions: formData.dimensions,
+          }),
+          ...(isFreightForwarding && {
+            countryOfLoading: formData.countryOfLoading,
+            deliveryAddress: formData.deliveryAddress,
+            shippingMode: formData.shippingMode,
+            commodity: formData.commodity,
+            weight: formData.weight,
+            dimensions: formData.dimensions,
+          }),
+          ...(isCourierServices && {
+            countryOfLoading: formData.countryOfLoading,
+            deliveryAddress: formData.deliveryAddress,
+            commodity: formData.commodity,
+            weight: formData.weight,
+            dimensions: formData.dimensions,
+          }),
+          ...(isCustomsBrokerage && {
+            deliveryAddress: formData.deliveryAddress,
+            shippingMode: formData.shippingMode,
+            commodity: formData.commodity,
+            weight: formData.weight,
+            dimensions: formData.dimensions,
+          }),
+        }),
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Server response:', response.status, errorText);
-        throw new Error(`Server error: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
       }
 
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Invalid response type from server');
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setStatus({ message: data.message || "Message sent successfully!", isError: false });
-        setFormData({ name: '', email: '', contact: '', message: '', service: serviceId });
-      } else {
-        throw new Error(data.error || 'Failed to send message');
-      }
-      
+      setStatus({ message: "Message sent successfully!", isError: false });
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        contact: '',
+        message: '',
+        service: serviceId,
+        countryOfLoading: '',
+        destination: '',
+        deliveryAddress: '',
+        shippingMode: undefined,
+        commodity: '',
+        weight: '',
+        dimensions: '',
+      });
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error('Error sending message:', error);
       setStatus({
-        message: error instanceof Error ? error.message : "An error occurred. Please try again later.",
+        message: "Failed to send message. Please try again.",
         isError: true
       });
     }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -88,6 +133,15 @@ const QueryForm = ({ serviceId = '', serviceTitle = '' }) => {
       [name]: value
     }));
   };
+
+  const isSeaToAir = serviceId === 'sea-to-air-freight-forwarding';
+  const isFreightForwarding = serviceId === 'freight-forwarding';
+  const isCourierServices = serviceId === 'courier-services';
+  const isCustomsBrokerage = serviceId === 'customs-brokerage-services';
+
+  if (!mounted) {
+    return null; // or a loading spinner
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -142,6 +196,238 @@ const QueryForm = ({ serviceId = '', serviceTitle = '' }) => {
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
+
+        {/* Sea to Air specific fields */}
+        {isSeaToAir && mounted && (
+          <>
+            <input
+              type="text"
+              name="countryOfLoading"
+              value={formData.countryOfLoading}
+              onChange={handleChange}
+              placeholder="Country of Loading"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="destination"
+              value={formData.destination}
+              onChange={handleChange}
+              placeholder="Destination"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="commodity"
+              value={formData.commodity}
+              onChange={handleChange}
+              placeholder="Commodity"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="weight"
+              value={formData.weight}
+              onChange={handleChange}
+              placeholder="Estimate Weight in KG"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="dimensions"
+              value={formData.dimensions}
+              onChange={handleChange}
+              placeholder="Size in Dimension"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </>
+        )}
+
+        {/* Freight Forwarding specific fields */}
+        {isFreightForwarding && mounted && (
+          <>
+            <input
+              type="text"
+              name="countryOfLoading"
+              value={formData.countryOfLoading}
+              onChange={handleChange}
+              placeholder="Country of Loading"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="deliveryAddress"
+              value={formData.deliveryAddress}
+              onChange={handleChange}
+              placeholder="Delivery Address"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <select
+              name="shippingMode"
+              value={formData.shippingMode || ''}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              required
+            >
+              <option value="" disabled>Select Shipping Mode</option>
+              <option value="Sea">Sea</option>
+              <option value="Air">Air</option>
+            </select>
+            
+            <input
+              type="text"
+              name="commodity"
+              value={formData.commodity}
+              onChange={handleChange}
+              placeholder="Commodity"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="weight"
+              value={formData.weight}
+              onChange={handleChange}
+              placeholder="Estimate Weight in KG"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="dimensions"
+              value={formData.dimensions}
+              onChange={handleChange}
+              placeholder="Size in Dimension"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </>
+        )}
+        
+        {isCourierServices && mounted && (
+          <>
+            <input
+              type="text"
+              name="countryOfLoading"
+              value={formData.countryOfLoading}
+              onChange={handleChange}
+              placeholder="Country of Loading"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="deliveryAddress"
+              value={formData.deliveryAddress}
+              onChange={handleChange}
+              placeholder="Delivery Address"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="commodity"
+              value={formData.commodity}
+              onChange={handleChange}
+              placeholder="Commodity"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="weight"
+              value={formData.weight}
+              onChange={handleChange}
+              placeholder="Estimate Weight in KG"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="dimensions"
+              value={formData.dimensions}
+              onChange={handleChange}
+              placeholder="Size in Dimension"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </>
+        )}
+        
+        {isCustomsBrokerage && mounted && (
+          <>
+            <input
+              type="text"
+              name="deliveryAddress"
+              value={formData.deliveryAddress}
+              onChange={handleChange}
+              placeholder="Delivery Address"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <select
+              name="shippingMode"
+              value={formData.shippingMode || ''}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              required
+            >
+              <option value="" disabled>Select Shipping Mode</option>
+              <option value="Sea">Sea</option>
+              <option value="Air">Air</option>
+            </select>
+            
+            <input
+              type="text"
+              name="commodity"
+              value={formData.commodity}
+              onChange={handleChange}
+              placeholder="Commodity"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="weight"
+              value={formData.weight}
+              onChange={handleChange}
+              placeholder="Estimate Weight in KG"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            
+            <input
+              type="text"
+              name="dimensions"
+              value={formData.dimensions}
+              onChange={handleChange}
+              placeholder="Size in Dimension"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </>
+        )}
         
         <textarea
           name="message"

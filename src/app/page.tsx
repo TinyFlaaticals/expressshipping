@@ -4,8 +4,68 @@ import { motion } from "framer-motion";
 import { ReactElement } from "react";
 import Image from 'next/image';
 import ServiceCard from '../components/ServiceCard';
-import { Globe } from '@/components/ui/globe'
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+
+const images = [
+  "/heroimages/001.png",
+  "/heroimages/002.png",
+  "/heroimages/003.png"
+];
+
+const HeroCarousel = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 3000); // Change image every 5 seconds
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <motion.div 
+      className="relative w-[calc(100%-16px)] lg:w-full max-w-[1398px] h-[400px] lg:h-[817px] 
+                 bg-[#152C40] rounded-[30px] lg:rounded-[55px] 
+                 flex flex-col items-center mt-[20px] lg:mt-[40px] 
+                 overflow-hidden mx-2 lg:mx-10"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      {images.map((img, index) => (
+        <motion.div
+          key={img}
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: index === currentImage ? 1 : 0 }}
+          transition={{ duration: 1 }}
+        >
+          <Image
+            src={img}
+            alt={`Hero image ${index + 1}`}
+            fill
+            priority={index === 0}
+            className="object-cover"
+          />
+        </motion.div>
+      ))}
+
+      {/* Optional: Navigation Dots */}
+      <div className="absolute bottom-6 flex gap-2 z-10">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            className={`w-2 h-2 rounded-full transition-all duration-300 
+                      ${currentImage === index ? 'bg-white w-4' : 'bg-white/50'}`}
+            onClick={() => setCurrentImage(index)}
+          />
+        ))}
+      </div>
+    </motion.div>
+  );
+};
 
 export default function Home(): ReactElement {
   const fadeInUp = {
@@ -19,15 +79,7 @@ export default function Home(): ReactElement {
   return (
     <main className="min-h-screen bg-white flex flex-col items-center px-2 lg:px-0">
       {/* Hero Section */}
-      <motion.div 
-        className="relative w-[calc(100%-16px)] lg:w-full max-w-[1398px] h-[400px] lg:h-[817px] 
-                   bg-[#152C40] rounded-[30px] lg:rounded-[55px] 
-                   flex flex-col items-center mt-[20px] lg:mt-[40px] 
-                   overflow-hidden mx-2 lg:mx-10"
-        {...fadeInUp}
-      >
-        <Globe />
-      </motion.div>
+      <HeroCarousel />
 
       {/* Hero Text Section */}
       <div className="w-full max-w-[1162px] text-center mt-[30px] lg:mt-[60px] px-8 lg:px-8">
