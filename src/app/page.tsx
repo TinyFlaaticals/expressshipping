@@ -182,7 +182,7 @@ export default function Home(): ReactElement {
             serviceId="freight-forwarding"
           />
           <ServiceCard
-            title="CustomsBrokerage Services"
+            title="Customs Brokerage Services"
             description="Ensuring smooth and hassle-free clearance for your shipments, managing key main regulatory requirements and optimizing your supply chain efficiency."
             icon="customs"
             serviceId="customs-brokerage-services"
