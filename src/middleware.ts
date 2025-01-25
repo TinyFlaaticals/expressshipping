@@ -7,11 +7,28 @@ export function middleware(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
     const service = searchParams.get('service')
     const title = searchParams.get('title')
+    const description = searchParams.get('description') // Capture description for schema
+    const icon = searchParams.get('icon') // Capture icon for reference
 
-    // Create new URL with only essential parameters
+    // Create new URL with essential parameters
     const newUrl = new URL('/services/inquiry', request.url)
     if (service) newUrl.searchParams.set('service', service)
     if (title) newUrl.searchParams.set('title', title)
+    
+    // Store additional data in the schema
+    const pageData = {
+      service,
+      title,
+      description,
+      icon
+    }
+
+    // Log the redirect for debugging
+    console.log('Redirecting:', {
+      from: request.url,
+      to: newUrl.toString(),
+      pageData
+    })
 
     return NextResponse.redirect(newUrl)
   }
