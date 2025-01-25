@@ -2,33 +2,55 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const url = request.nextUrl
+  // Force HTTPS in production
+  if (
+    process.env.NODE_ENV === 'production' &&
+    !request.url.includes('https://')
+  ) {
+    return NextResponse.redirect(
+      request.url.replace('http://', 'https://')
+    )
+  }
 
-  // Handle old query URLs and remove unnecessary parameters
-  if (url.pathname === '/query') {
-    const newUrl = new URL('/services/inquiry', request.url)
+  // Handle old query URLs with explicit domain
+  if (request.nextUrl.pathname === '/query') {
+    // Create new URL with production domain
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://expressshipping.mv'
+      : request.url
+
+    const newUrl = new URL('/services/inquiry', baseUrl)
     
-    // Only forward essential parameters
-    const service = url.searchParams.get('service')
-    const title = url.searchParams.get('title')
+    // Get essential parameters
+    const service = request.nextUrl.searchParams.get('service')
+    const title = request.nextUrl.searchParams.get('title')
 
+    // Set only required parameters
     if (service) newUrl.searchParams.set('service', service)
     if (title) newUrl.searchParams.set('title', title)
 
-    // Remove all other parameters (description, icon, etc.)
-    return NextResponse.redirect(newUrl)
+    // Force 308 permanent redirect
+    return NextResponse.redirect(newUrl.toString(), {
+      status: 308, // Permanent redirect
+      headers: {
+        'Cache-Control': 'public, max-age=31536000',
+        'Clear-Site-Data': '*'
+      }
+    })
   }
 
-  // Handle www to non-www redirect
+  // Handle www to non-www with explicit domain
   if (request.headers.get('host')?.startsWith('www.')) {
     const newUrl = new URL(request.url)
     newUrl.host = newUrl.host.replace(/^www\./, '')
-    return NextResponse.redirect(newUrl)
+    return NextResponse.redirect(newUrl.toString(), {
+      status: 308 // Permanent redirect
+    })
   }
 
   // Handle old service URLs if they exist
-  if (url.pathname.startsWith('/services/') && url.pathname.endsWith('.html')) {
-    const newPath = url.pathname.replace('.html', '')
+  if (request.nextUrl.pathname.startsWith('/services/') && request.nextUrl.pathname.endsWith('.html')) {
+    const newPath = request.nextUrl.pathname.replace('.html', '')
     const newUrl = new URL(newPath, request.url)
     return NextResponse.redirect(newUrl)
   }
@@ -36,11 +58,11 @@ export function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 
-// Configure middleware to run on specific paths
+// Update matcher to be more specific
 export const config = {
   matcher: [
     '/query',
     '/services/:path*',
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ]
 } 
