@@ -25,6 +25,7 @@ function InquiryContent() {
   const searchParams = useSearchParams();
   const serviceId = searchParams.get('service');
   const serviceTitle = searchParams.get('title') || serviceId || '';
+  const description = searchParams.get('description');
 
   useEffect(() => {
     // Use the original structured data generator that was previously validated
@@ -55,6 +56,8 @@ function InquiryContent() {
           <h1 className="text-3xl font-bold text-[#152C40] mb-8 text-center">
             {serviceTitle ? `Inquiry for ${serviceTitle}` : 'Service Inquiry'}
           </h1>
+          
+          <p className="text-gray-700 mb-6 leading-relaxed">{description}</p>
           
           <QueryForm 
             serviceId={serviceId || ''} 

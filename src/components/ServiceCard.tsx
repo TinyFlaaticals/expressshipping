@@ -21,16 +21,8 @@ export default function ServiceCard({ title, description, icon, serviceId }: Ser
     e.stopPropagation();
   };
 
-  const handleClick = () => {
-    const params = new URLSearchParams({
-      service: serviceId,
-      title: title,
-      description: description,
-      icon: icon
-    });
-    
-    // Using the new URL structure
-    router.push(`/services/inquiry?${params.toString()}`);
+  const handleCardClick = () => {
+    router.push(`/services/inquiry?service=${serviceId}&title=${encodeURIComponent(title)}`);
   };
 
   return (
@@ -39,14 +31,14 @@ export default function ServiceCard({ title, description, icon, serviceId }: Ser
       <motion.div
         className="md:hidden w-full bg-[#f0f0f0] rounded-[20px]
                    shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={handleCardClick}
         layout
         animate={{
-          backgroundColor: isExpanded ? "rgb(21,44,64)" : "#f0f0f0",
-          height: isExpanded ? "auto" : "90px",
-          borderRadius: isExpanded ? "24px" : "20px",
-          margin: isExpanded ? "12px 0" : "8px 0",
-          scale: isExpanded ? 1.02 : 1,
+          backgroundColor: "#f0f0f0",
+          height: "90px",
+          borderRadius: "20px",
+          margin: "8px 0",
+          scale: 1,
         }}
         transition={{
           layout: { duration: 0.3 },
@@ -58,11 +50,11 @@ export default function ServiceCard({ title, description, icon, serviceId }: Ser
           className="flex flex-col h-full"
           layout
         >
-          <div className="flex items-center justify-between px-5 py-4">
+          <div className="flex items-center px-5 py-4">
             <div className="flex items-center gap-4">
               <div className="relative w-[28px] h-[28px] flex items-center justify-center shrink-0">
                 <Image
-                  src={`/icons/${icon}${isExpanded ? "_w" : ""}.svg`}
+                  src={`/icons/${icon}.svg`}
                   alt={title}
                   fill
                   sizes="28px"
@@ -70,73 +62,11 @@ export default function ServiceCard({ title, description, icon, serviceId }: Ser
                 />
               </div>
               <div className="w-[3px] h-[35px] bg-[#F22929] rounded-full shrink-0" />
-              <h3
-                className={`text-[16px] font-semibold tracking-tight transition-colors duration-300 ${
-                  isExpanded ? "text-white" : "text-[#152C40]"
-                }`}
-              >
+              <h3 className="text-[16px] font-semibold tracking-tight text-[#152C40]">
                 {title}
               </h3>
             </div>
-            <motion.div
-              animate={{ rotate: isExpanded ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-              className="mr-2"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke={isExpanded ? "#ffffff" : "#152C40"}
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </motion.div>
           </div>
-
-          <motion.div
-            layout
-            initial={false}
-            animate={{ 
-              height: isExpanded ? "auto" : 0,
-              opacity: isExpanded ? 1 : 0
-            }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <div className="px-5 pb-5">
-              <p className="text-white/90 text-[15px] leading-[1.7] mb-5">
-                {description}
-              </p>
-              <Link
-                href={`/query?service=${serviceId}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(description || '')}&icon=${encodeURIComponent(icon)}`}
-                className="inline-flex items-center text-[14px] font-semibold 
-                         text-white border-2 border-white/80 rounded-full px-8 py-2.5
-                         hover:bg-white hover:text-[rgb(21,44,64)] 
-                         transition-all duration-300 hover:scale-[1.02]"
-                onClick={handleButtonClick}
-              >
-                Get Started
-                <svg
-                  className="ml-2 w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </Link>
-            </div>
-          </motion.div>
         </motion.div>
       </motion.div>
 
@@ -145,7 +75,7 @@ export default function ServiceCard({ title, description, icon, serviceId }: Ser
         className="hidden md:block w-[480px] scale-[0.85] transform-origin-left bg-[#FAFAFA] 
                    rounded-[40px] cursor-pointer overflow-hidden
                    shadow-sm hover:shadow-lg transition-shadow duration-300"
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={handleCardClick}
         layout
         animate={{
           backgroundColor: isExpanded ? "rgb(21,44,64)" : "#f0f0f0",

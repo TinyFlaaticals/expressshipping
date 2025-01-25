@@ -1,68 +1,61 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+// Valid service IDs from our service data
+const VALID_SERVICES = new Set([
+  'sea-to-air-freight-forwarding',
+  'freight-forwarding',
+  'customs-brokerage-services',
+  'courier-services',
+  'warehousing',
+  'local-logistics-in-the-maldives'
+]);
+
 export function middleware(request: NextRequest) {
   // Force HTTPS in production
-  if (
-    process.env.NODE_ENV === 'production' &&
-    !request.url.includes('https://')
-  ) {
-    return NextResponse.redirect(
-      request.url.replace('http://', 'https://')
-    )
-  }
-
-  // Handle old query URLs with explicit domain
-  if (request.nextUrl.pathname === '/query') {
-    // Create new URL with production domain
-    const baseUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://expressshipping.mv'
-      : request.url
-
-    const newUrl = new URL('/services/inquiry', baseUrl)
+  const url = request.nextUrl.clone()
+  
+  // Handle /query redirects
+  if (url.pathname === '/query') {
+    // Get the service and title parameters
+    const service = url.searchParams.get('service')
+    const title = url.searchParams.get('title')
     
-    // Get essential parameters
-    const service = request.nextUrl.searchParams.get('service')
-    const title = request.nextUrl.searchParams.get('title')
+    // Create the new URL for services/inquiry
+    url.pathname = '/services/inquiry'
+    
+    // Clear all existing parameters and only set the ones we want
+    url.search = ''
+    if (service) url.searchParams.set('service', service)
+    if (title) url.searchParams.set('title', title)
 
-    // Set only required parameters
-    if (service) newUrl.searchParams.set('service', service)
-    if (title) newUrl.searchParams.set('title', title)
-
-    // Force 308 permanent redirect
-    return NextResponse.redirect(newUrl.toString(), {
-      status: 308, // Permanent redirect
+    // Return permanent redirect
+    return NextResponse.redirect(url, {
+      status: 301,
       headers: {
-        'Cache-Control': 'public, max-age=31536000',
-        'Clear-Site-Data': '*'
+        'Cache-Control': 'no-store',
+        'Pragma': 'no-cache',
+        'Expires': '0',
       }
     })
   }
 
-  // Handle www to non-www with explicit domain
+  // Handle www to non-www redirect
   if (request.headers.get('host')?.startsWith('www.')) {
     const newUrl = new URL(request.url)
     newUrl.host = newUrl.host.replace(/^www\./, '')
     return NextResponse.redirect(newUrl.toString(), {
-      status: 308 // Permanent redirect
+      status: 301
     })
-  }
-
-  // Handle old service URLs if they exist
-  if (request.nextUrl.pathname.startsWith('/services/') && request.nextUrl.pathname.endsWith('.html')) {
-    const newPath = request.nextUrl.pathname.replace('.html', '')
-    const newUrl = new URL(newPath, request.url)
-    return NextResponse.redirect(newUrl)
   }
 
   return NextResponse.next()
 }
 
-// Update matcher to be more specific
+// Simplified matcher
 export const config = {
   matcher: [
     '/query',
     '/services/:path*',
-    '/((?!_next/static|_next/image|favicon.ico).*)',
   ]
 } 
