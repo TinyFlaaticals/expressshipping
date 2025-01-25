@@ -303,16 +303,26 @@ export async function POST(request: Request) {
 
     // Send email
     const { data, error } = await resend.emails.send({
-      from: "info@expressshipping.mv",
+      from: "Express Shipping <info@expressshipping.mv>",
       to: process.env.RECIPIENT_EMAIL!,
-      subject: `New Query from ${name}`,
+      replyTo: email,
+      subject: `New Query from ${name} - ${service}`,
       html: emailTemplate,
     });
 
     if (error) {
-      console.error('Failed to send email:', error);
+      console.error('Resend API Error Details:', {
+        error,
+        fromEmail: "info@expressshipping.mv",
+        toEmail: process.env.RECIPIENT_EMAIL,
+        subject: `New Query from ${name} - ${service}`
+      });
       return NextResponse.json(
-        { success: false, error: 'Failed to send email' },
+        { 
+          success: false, 
+          error: 'Failed to send email',
+          details: error.message 
+        },
         { status: 500 }
       );
     }
