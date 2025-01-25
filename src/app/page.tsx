@@ -85,7 +85,7 @@ export default function Home(): ReactElement {
       <div className="w-full max-w-[1162px] text-center mt-[30px] lg:mt-[60px] px-8 lg:px-8">
         <h1 className="text-[28px] lg:text-[45px] font-black text-[#152C40] mb-3 lg:mb-4 leading-tight" 
             style={{ fontFamily: 'Inter' }}>
-          THE MALDIVES' LOGISTICS EXPERTS
+          THE MALDIVES LOGISTICS EXPERTS
         </h1>
         <h2 className="text-[18px] lg:text-[24px] text-[#152C40] mb-[30px] lg:mb-[40px]">
           Reliable Logistics, Beyond Boundaries
