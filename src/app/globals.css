@@ -5,17 +5,20 @@
 @tailwind utilities;
 
 :root {
+  --primary-red: #F22929;
+  --primary-blue: #152C40;
+  --gray-bg: #D9D9D9;
+  --text-color: #000000;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --heading-size: 32px; /* Default size */
 }
 
-body {
-  font-family: 'Inter';
-}
-
 @layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -77,5 +80,36 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Service Cards */
+  .service-card {
+    @apply bg-white rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg;
+  }
+
+  /* Form Elements */
+  .form-input {
+    @apply w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .submit-button {
+    @apply w-full bg-[#152C40] text-white py-3 px-4 rounded-md hover:bg-[#1f3d59] 
+           transition-colors duration-200 font-medium focus:outline-none focus:ring-2 
+           focus:ring-offset-2 focus:ring-blue-500;
+  }
+
+  /* Layout Components */
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-12 sm:py-16 lg:py-20;
   }
 }

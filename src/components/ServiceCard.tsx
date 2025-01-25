@@ -4,24 +4,33 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 interface ServiceCardProps {
   title: string;
-  description?: string;
+  description: string;
   icon: string;
   serviceId: string;
 }
 
-export default function ServiceCard({
-  title,
-  description,
-  icon,
-  serviceId,
-}: ServiceCardProps) {
+export default function ServiceCard({ title, description, icon, serviceId }: ServiceCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const router = useRouter();
 
   const handleButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+  };
+
+  const handleClick = () => {
+    const params = new URLSearchParams({
+      service: serviceId,
+      title: title,
+      description: description,
+      icon: icon
+    });
+    
+    // Using the new URL structure
+    router.push(`/services/inquiry?${params.toString()}`);
   };
 
   return (
